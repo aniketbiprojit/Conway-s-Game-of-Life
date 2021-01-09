@@ -4,6 +4,8 @@ const num = 10
 
 const size = 40 //pixels
 
+var cycles = 0
+
 const app = new App({
 	target: document.body,
 	props: {
@@ -12,6 +14,7 @@ const app = new App({
 		start,
 		stop,
 		resetCells,
+		// cycles,
 	},
 })
 
@@ -54,6 +57,8 @@ Array.from(cells).forEach((element) => {
 })
 
 function update() {
+	cycles += 1
+	// console.log(cycles)
 	let total_count = 0
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
@@ -68,6 +73,7 @@ function update() {
 	const copy_of_grid = Object.assign({}, grid)
 
 	if (total_count === 0) {
+		cycles = 0
 		resetCells()
 	} else {
 		for (let i = 0; i < num; i++) {
@@ -87,7 +93,7 @@ function update() {
 	}
 }
 
-function resetCells() {
+function resetCells(restart: boolean = false) {
 	stop()
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
@@ -97,6 +103,9 @@ function resetCells() {
 		}
 	}
 	update()
+	if (restart) {
+		start()
+	}
 }
 
 function countNeighbours(i: number, j: number) {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let num
 	export let update,  start, stop,resetCells
-	
+	// export let cycles
 </script>
 
 <style>
@@ -35,6 +35,7 @@
 	<button on:click={()=>start()}>Start</button>
 	<button on:click={()=>stop()}>Stop</button>
 	<button on:click={()=>resetCells()}>Reset</button>
+	<button on:click={()=>resetCells(true)}>Restart</button>
 	<div class="grid">
 		{#each Array(num) as _, i}
 			{#each Array(num) as _, j}
@@ -44,7 +45,10 @@
 			{/each}
 		{/each}
 	</div>
-	<!-- <input type='text'></input> -->
+	<!-- <p>
+		{cycles}
+	</p> -->
+
 	<h1>Rules</h1>
 	<li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
 	<li>Any live cell with two or three live neighbours lives on to the next generation.</li>
