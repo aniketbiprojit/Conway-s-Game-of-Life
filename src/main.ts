@@ -19,7 +19,7 @@ class Cell {
 	constructor(block: HTMLElement) {
 		this.block = block
 		grid[parseInt(block.dataset.x)][parseInt(block.dataset.y)] = this
-		if (Math.random() < 0.1) {
+		if (Math.random() < 0.2) {
 			block.classList.add('alive')
 			this.alive = true
 		}
@@ -59,9 +59,21 @@ function update() {
 			cell.setInner(neighbours.toString())
 		}
 	}
+
+	const copy_of_grid = Object.assign({}, grid)
+	// console.log(copy_of_grid)
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
-			grid[i][j].setInner(countNeighbours(i, j).toString())
+			const cell = copy_of_grid[i][j]
+			if (cell.alive) {
+				if (cell.neighbours < 2 || cell.neighbours > 3) {
+					cell.kill()
+				}
+			} else {
+				if (cell.neighbours === 3) {
+					cell.raise()
+				}
+			}
 		}
 	}
 }
@@ -75,7 +87,7 @@ function countNeighbours(i: number, j: number) {
 			if (x == -1) {
 				continue
 			}
-			console.log(x, y)
+			// console.log(x, y)
 			if (grid[x][y].alive) {
 				count++
 			}
@@ -87,6 +99,6 @@ function countNeighbours(i: number, j: number) {
 	return count
 }
 
-update()
+setInterval(update, 1000)
 
 export default app
