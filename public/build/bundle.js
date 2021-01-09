@@ -686,26 +686,39 @@ var app = (function () {
         }
     });
     function update$1() {
+        let total_count = 0;
         for (let i = 0; i < num; i++) {
             for (let j = 0; j < num; j++) {
                 const cell = grid[i][j];
                 const neighbours = countNeighbours(i, j);
+                total_count += neighbours;
                 cell.neighbours = neighbours;
                 cell.setInner(neighbours.toString());
             }
         }
         const copy_of_grid = Object.assign({}, grid);
-        for (let i = 0; i < num; i++) {
-            for (let j = 0; j < num; j++) {
-                const cell = copy_of_grid[i][j];
-                if (cell.alive) {
-                    if (cell.neighbours < 2 || cell.neighbours > 3) {
-                        cell.kill();
-                    }
-                }
-                else {
-                    if (cell.neighbours === 3) {
+        if (total_count === 0) {
+            for (let i = 0; i < num; i++) {
+                for (let j = 0; j < num; j++) {
+                    const cell = grid[i][j];
+                    if (Math.random() < 0.2)
                         cell.raise();
+                }
+            }
+        }
+        else {
+            for (let i = 0; i < num; i++) {
+                for (let j = 0; j < num; j++) {
+                    const cell = copy_of_grid[i][j];
+                    if (cell.alive) {
+                        if (cell.neighbours < 2 || cell.neighbours > 3) {
+                            cell.kill();
+                        }
+                    }
+                    else {
+                        if (cell.neighbours === 3) {
+                            cell.raise();
+                        }
                     }
                 }
             }
@@ -730,7 +743,7 @@ var app = (function () {
         }
         return count;
     }
-    setInterval(update$1, 1000);
+    setInterval(update$1, 100);
 
     return app;
 
