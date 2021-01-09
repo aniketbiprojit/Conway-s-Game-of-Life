@@ -75,7 +75,7 @@ function update() {
 
 	if (total_count === 0) {
 		cycles = 0
-		resetCells()
+		// resetCells()
 	} else {
 		for (let i = 0; i < num; i++) {
 			for (let j = 0; j < num; j++) {
