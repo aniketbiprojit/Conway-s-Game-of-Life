@@ -33,7 +33,11 @@
 
 <main>
 	<span class="alive" />
+	<h1>
+		Game of Life -  A turing complete zero-player game
+	</h1>
 	
+
 	<button on:click={()=>clear()}>Clear</button>
 	<button on:click={update}>Run Once</button>
 	<button on:click={()=>start()}>Start</button>

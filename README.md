@@ -1,4 +1,4 @@
-## Connway's Game of Life - Learning Svelte
+## Connway's Game of Life - A turing complete zero-player game
 
 Live Site: https://git.aniketbiprojit.me/Conway-s-Game-of-Life/
 
