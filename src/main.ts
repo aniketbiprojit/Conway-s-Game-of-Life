@@ -11,7 +11,7 @@ const app = new App({
 	},
 })
 
-const grid: Array<Array<Cell>> = Array.from(Array(10), () => new Array(10))
+const grid: Array<Array<Cell>> = Array.from(Array(num), () => new Array(num))
 
 class Cell {
 	block: HTMLElement
@@ -41,7 +41,6 @@ class Cell {
 		this.block.children[0].innerHTML = text
 	}
 }
-
 const cells = document.getElementsByClassName('cell')
 
 Array.from(cells).forEach((element) => {
@@ -61,7 +60,7 @@ function update() {
 	}
 
 	const copy_of_grid = Object.assign({}, grid)
-	// console.log(copy_of_grid)
+
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
 			const cell = copy_of_grid[i][j]
@@ -87,7 +86,7 @@ function countNeighbours(i: number, j: number) {
 			if (x == -1) {
 				continue
 			}
-			// console.log(x, y)
+
 			if (grid[x][y].alive) {
 				count++
 			}
