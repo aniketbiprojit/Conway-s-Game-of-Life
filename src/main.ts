@@ -7,7 +7,11 @@ const size = 40 //pixels
 const app = new App({
 	target: document.body,
 	props: {
-		num: num,
+		num,
+		update,
+		start,
+		stop,
+		resetCells,
 	},
 })
 
@@ -64,13 +68,7 @@ function update() {
 	const copy_of_grid = Object.assign({}, grid)
 
 	if (total_count === 0) {
-		for (let i = 0; i < num; i++) {
-			for (let j = 0; j < num; j++) {
-				const cell = grid[i][j]
-
-				if (Math.random() < 0.2) cell.raise()
-			}
-		}
+		resetCells()
 	} else {
 		for (let i = 0; i < num; i++) {
 			for (let j = 0; j < num; j++) {
@@ -85,6 +83,17 @@ function update() {
 					}
 				}
 			}
+		}
+	}
+}
+
+function resetCells() {
+	stop()
+	for (let i = 0; i < num; i++) {
+		for (let j = 0; j < num; j++) {
+			const cell = grid[i][j]
+
+			if (Math.random() < 0.2) cell.raise()
 		}
 	}
 }
@@ -110,6 +119,17 @@ function countNeighbours(i: number, j: number) {
 	return count
 }
 
-setInterval(update, 100)
+let interval
+
+function start() {
+	if (interval) clearInterval(interval)
+	interval = setInterval(update, 100)
+}
+
+function stop() {
+	if (interval) clearInterval(interval)
+}
+
+start()
 
 export default app
