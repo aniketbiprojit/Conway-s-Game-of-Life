@@ -38,8 +38,8 @@
 	<button on:click={update}>Run Once</button>
 	<button on:click={()=>start()}>Start</button>
 	<button on:click={()=>stop()}>Stop</button>
-	<button on:click={()=>resetCells()}>Reset</button>
-	<button on:click={()=>resetCells(true)}>Restart</button>
+	<!-- <button on:click={()=>resetCells()}>Random</button> -->
+	<button on:click={()=>resetCells(true)}>Random</button>
 	<div class="grid">
 		{#each Array(num) as _, i}
 			{#each Array(num) as _, j}

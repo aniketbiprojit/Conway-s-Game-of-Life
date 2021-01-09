@@ -104,6 +104,7 @@ function clear() {
 			}
 		}
 	}
+	updateNeighbours()
 }
 
 function handleCellClick(e) {
@@ -117,6 +118,10 @@ function handleCellClick(e) {
 	} else {
 		cell.raise()
 	}
+	updateNeighbours()
+}
+
+function updateNeighbours() {
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
 			const cell = grid[i][j]
