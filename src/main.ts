@@ -96,6 +96,7 @@ function resetCells() {
 			if (Math.random() < 0.2) cell.raise()
 		}
 	}
+	update()
 }
 
 function countNeighbours(i: number, j: number) {
