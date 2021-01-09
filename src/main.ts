@@ -30,13 +30,20 @@ class Cell {
 		this.block.classList.remove('alive')
 	}
 
+	raise() {
+		this.alive = true
+		this.block.classList.add('alive')
+	}
+
+	neighbours: number = 0
+
 	setInner(text: string) {
 		this.block.children[0].innerHTML = text
 	}
 }
 
 const cells = document.getElementsByClassName('cell')
-// console.log(cells)
+
 Array.from(cells).forEach((element) => {
 	if (element instanceof HTMLElement) {
 		new Cell(element)
@@ -44,6 +51,14 @@ Array.from(cells).forEach((element) => {
 })
 
 function update() {
+	for (let i = 0; i < num; i++) {
+		for (let j = 0; j < num; j++) {
+			const cell = grid[i][j]
+			const neighbours = countNeighbours(i, j)
+			cell.neighbours = neighbours
+			cell.setInner(neighbours.toString())
+		}
+	}
 	for (let i = 0; i < num; i++) {
 		for (let j = 0; j < num; j++) {
 			grid[i][j].setInner(countNeighbours(i, j).toString())
