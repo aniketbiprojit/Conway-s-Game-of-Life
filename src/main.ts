@@ -14,7 +14,8 @@ const app = new App({
 		start,
 		stop,
 		resetCells,
-		// cycles,
+		handleCellClick,
+		clear,
 	},
 })
 
@@ -93,6 +94,39 @@ function update() {
 	}
 }
 
+function clear() {
+	stop()
+	for (let i = 0; i < num; i++) {
+		for (let j = 0; j < num; j++) {
+			const cell = grid[i][j]
+			if (cell.alive) {
+				cell.kill()
+			}
+		}
+	}
+}
+
+function handleCellClick(e) {
+	stop()
+	let { x, y } = e.target.dataset
+	x = parseInt(x)
+	y = parseInt(y)
+	const cell = grid[x][y]
+	if (cell.alive) {
+		cell.kill()
+	} else {
+		cell.raise()
+	}
+	for (let i = 0; i < num; i++) {
+		for (let j = 0; j < num; j++) {
+			const cell = grid[i][j]
+			const neighbours = countNeighbours(i, j)
+			cell.neighbours = neighbours
+			cell.setInner(neighbours.toString())
+		}
+	}
+}
+
 function resetCells(restart: boolean = false) {
 	stop()
 	for (let i = 0; i < num; i++) {
@@ -112,12 +146,9 @@ function countNeighbours(i: number, j: number) {
 	let count = 0
 	for (let x_off = -1; x_off <= 1; x_off++) {
 		for (let y_off = -1; y_off <= 1; y_off++) {
-			const x = (i + x_off) % num
+			const x = (i + x_off + num) % num
 			const y = (j + y_off + num) % num
-			if (x == -1) {
-				continue
-			}
-
+			// console.log(x, y)
 			if (grid[x][y].alive) {
 				count++
 			}

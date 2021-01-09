@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let num
 	export let update,  start, stop,resetCells
-	// export let cycles
+	export let handleCellClick,clear
 </script>
 
 <style>
@@ -13,6 +13,7 @@
 		flex-wrap: wrap;
 	}
 	.cell {
+		cursor:pointer;
 		width: 38px;
 		height: 38px;
 		border: 1px solid black;
@@ -26,11 +27,14 @@
 	}
 	p {
 		margin: 0;
+		pointer-events: none;
 	}
 </style>
 
 <main>
 	<span class="alive" />
+	
+	<button on:click={()=>clear()}>Clear</button>
 	<button on:click={update}>Run Once</button>
 	<button on:click={()=>start()}>Start</button>
 	<button on:click={()=>stop()}>Stop</button>
@@ -39,16 +43,14 @@
 	<div class="grid">
 		{#each Array(num) as _, i}
 			{#each Array(num) as _, j}
-				<div class={'cell'} id={(i * num + j).toString()} data-x={i} data-y={j}>
-					<p>{i + ',' + j}</p>
+				<div on:click={handleCellClick} class={'cell'} id={(i * num + j).toString()} data-x={i} data-y={j}>
+					<p on:click={e=>{e.preventDefault()}}>{i + ',' + j}</p>
 				</div>
 			{/each}
 		{/each}
 	</div>
-	<!-- <p>
-		{cycles}
-	</p> -->
-
+	<h3>Clear and click the cells to make custom objects.</h3>
+	<h4>The cells live in a semi-	wrapped space and not infinite space so gliders will re-enter the plane.</h4>
 	<h1>Rules</h1>
 	<li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
 	<li>Any live cell with two or three live neighbours lives on to the next generation.</li>
