@@ -19,7 +19,7 @@
 		justify-content: center;
 		align-items: center;
 	}
-	.alive{
+	.alive {
 		background-color: black;
 	}
 	p {
@@ -28,6 +28,7 @@
 </style>
 
 <main>
+	<span class="alive" />
 	<div class="grid">
 		{#each Array(num) as _, i}
 			{#each Array(num) as _, j}
