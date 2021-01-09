@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let num
 </script>
 
@@ -20,7 +20,7 @@
 	<div class="grid">
 		{#each Array(num) as _, i}
 			{#each Array(num) as _, j}
-				<div class={'cell'} id={i * num + j} data-x={i} data-y={j} />
+				<div class={'cell'} id={(i * num + j).toString()} data-x={i} data-y={j} />
 			{/each}
 		{/each}
 	</div>
